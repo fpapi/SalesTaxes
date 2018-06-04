@@ -1,6 +1,7 @@
 package com.lastminute.fpapi.salestaxes.tests;
 
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.lastminute.fpapi.salestaxes.application.Application;
@@ -11,8 +12,7 @@ public class InputShoppingBasketsTest {
 	private String LS = System.getProperty("line.separator");
 	
 	private Application app = new Application();
-	
-	
+		
 	@Test
 	public void given_firstExcerciseBasket_when_receiptIsEmpty_then_validReceiptCreated() {
 		String input =
@@ -76,5 +76,11 @@ public class InputShoppingBasketsTest {
 		Assert.assertEquals("Wrong Item Name", name, checkingItem.getPrintableName());
 		Assert.assertEquals("Wrong Item Price", price, checkingItem.getTaxedPrice(), 0.01);
 	}
+	
+	@BeforeClass
+    public static void setLogger()
+    {
+        System.setProperty("log4j.configurationFile","log4j2-testConfig.yml");
+    }
 
 }

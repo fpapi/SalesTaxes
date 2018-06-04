@@ -5,10 +5,14 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.lastminute.fpapi.salestaxes.entities.charges.Category;
 import com.lastminute.fpapi.salestaxes.entities.charges.Origin;
 
 public class ItemTypeContainsKeyword implements ItemTypeStrategy {
+	private static final Logger logger = LogManager.getLogger();
 	private static final ItemTypeDictionary dictionary = new ItemTypeDictionary();
 		
 	private static ItemTypeContainsKeyword instance = null;
@@ -34,12 +38,14 @@ public class ItemTypeContainsKeyword implements ItemTypeStrategy {
 	}
 
 	private <T> T assign(String printableName, Set<Entry<T, List<String>>> keywords) {
+		logger.traceEntry("assign", printableName);
 		T assigned = null;
 		for (Entry<T, List<String>> category : keywords) {		
 			if (printableName.matches(".*("+category.getValue().stream().collect(Collectors.joining("|"))+").*")) {
 				assigned = category.getKey();
 			}
 		}
+		logger.traceExit(assigned);
 		return assigned;
 	}
 

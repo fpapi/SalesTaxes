@@ -35,5 +35,11 @@ public class ReceiptConcrete implements Receipt {
 	public void setTotal(double total) {
 		this.total = total;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("ReceiptConcrete [purchasedGoods=%s, salesTexsed=%s, total=%s]", purchasedGoods,
+				salesTexsed, total);
+	}
 	
 }
